@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #050505;
+  --color-surface-raised: #0a0a0a;
+  --color-surface-overlay: #111111;
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-default: rgba(255, 255, 255, 0.1);
+  --color-accent: #8b6fd9;
+  --color-glow-violet: rgba(139, 111, 217, 0.15);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: #050505;
+  color: #f5f5f5;
+  font-family: 'Manrope', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% -20%, rgba(139, 111, 217, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 100% 50%, rgba(139, 111, 217, 0.03) 0%, transparent 40%),
+    #050505;
+}
+
+/* Noise texture overlay */
+#root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Font classes */
+.font-display {
+  font-family: 'Syne', system-ui, sans-serif;
+}
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Hero grid background */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black, transparent);
+  transform: perspective(500px) rotateX(15deg) scale(1.1);
+  z-index: 0;
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 100px;
+  background: rgba(10, 10, 10, 0.8);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a3a3a3;
+  animation: badgeGlow 4s ease-in-out infinite;
+}
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  animation: pulse 3s infinite ease-in-out;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8b6fd9;
+  border-left: 2px solid #8b6fd9;
+  padding-left: 16px;
+  margin-bottom: 16px;
+}
+
+/* Hero entrance */
+@keyframes heroEntrance {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-stagger > * {
+  opacity: 0;
+  animation: heroEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-stagger > *:nth-child(1) { animation-delay: 0.2s; }
+.hero-stagger > *:nth-child(2) { animation-delay: 0.4s; }
+.hero-stagger > *:nth-child(3) { animation-delay: 0.6s; }
+.hero-stagger > *:nth-child(4) { animation-delay: 0.8s; }
+.hero-stagger > *:nth-child(5) { animation-delay: 1.0s; }
+
+/* Fade up */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-fade-up { animation: fade-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* Stagger children */
+.stagger > * {
+  opacity: 0;
+  animation: fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 60ms; }
+.stagger > *:nth-child(3) { animation-delay: 120ms; }
+.stagger > *:nth-child(4) { animation-delay: 180ms; }
+.stagger > *:nth-child(5) { animation-delay: 240ms; }
+.stagger > *:nth-child(6) { animation-delay: 300ms; }
+
+/* Badge glow */
+@keyframes badgeGlow {
+  0%, 100% { border-color: var(--color-border-subtle); box-shadow: none; }
+  50% { border-color: rgba(139, 111, 217, 0.3); box-shadow: 0 0 12px rgba(139, 111, 217, 0.1); }
+}
+
+/* Pulse (status dot) */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.9); opacity: 0.5; }
+}
+
+/* Scroll hint */
+@keyframes scrollHint {
+  0%, 100% { opacity: 0.15; transform: translateY(0); }
+  50% { opacity: 0.5; transform: translateY(8px); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.15); }
+
+html { scroll-behavior: smooth; }
