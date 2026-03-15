@@ -22,6 +22,41 @@ export default function Footer() {
             Claude Code
           </a>
         </span>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://expanza.co.uk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors duration-200"
+            style={{ color: '#666' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#a3a3a3'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#666'}
+          >
+            expanza.co.uk
+          </a>
+          <a
+            href="https://demo.expanza.co.uk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors duration-200"
+            style={{ color: '#666' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#a3a3a3'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#666'}
+          >
+            Demo
+          </a>
+          <a
+            href="https://lab.expanza.co.uk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors duration-200"
+            style={{ color: '#666' }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#a3a3a3'}
+            onMouseLeave={(e) => e.currentTarget.style.color = '#666'}
+          >
+            AI Lab
+          </a>
+        </div>
         <span>&copy; {new Date().getFullYear()} Finley Stephenson</span>
       </div>
     </footer>
